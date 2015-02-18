@@ -16,9 +16,14 @@ require "rack/parser"
   end
 
   put :sources, :with => [:id] do
+    source = ::Editor::Source.find(params[:id])
+    source.update_attribute :text, params["text"] unless params["text"].nil?
+    source.as_json.to_json
   end
   
   get :sources, :with => [:id] do
+    source = ::Editor::Source.find(params[:id])
+    source.as_json.to_json
   end
 
 end

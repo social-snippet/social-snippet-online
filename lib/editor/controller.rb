@@ -4,4 +4,8 @@
     render :empty_view
   end
 
+  get "-", :with => [:id]  do
+    render :empty_view
+  end
+
 end
