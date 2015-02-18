@@ -8,6 +8,12 @@ services:
 
 sudo: false
 
+install:
+  - bundle install -j4
+
+script:
+  - bundle exec rake spec
+
 deploy:
   provider: heroku
   api_key:
