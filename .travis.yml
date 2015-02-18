@@ -9,7 +9,7 @@ services:
 sudo: false
 
 install:
-  - bundle install -j4
+  - bundle install -j4 --path vendor/bundle
 
 script:
   - bundle exec rake spec
@@ -20,6 +20,12 @@ deploy:
     secure: "D8yLQzpsEyYnwsiAda9+29SaORNHzV49FIvHtL0nobRUG/ChYieH17OV6feFFBViJoAbKTg0nVl+2jA57QDazBxdFV38VG30V6/kPeLqYAbh4eHTdgiv/ucaz+7U2KN/ybeQaNtw1YE3T/8DcqsG3ExFC5v9bDI6uok9QN1KSuc="
   app:
     master: ssnip
+
+cache:
+  directories:
+    - vendor/bundle
+    - node_modules
+    - bower_components
 
 env:
   global:
