@@ -1,7 +1,13 @@
 gulp = require("gulp")
 
 do (desc = "build front-end")->
-  gulp.task "app.js", ->
+  gulp.task "bower", (done)->
+    bower = require("bower")
+    bower.commands.install().on "end", ->
+      done()
+    undefined
+
+  gulp.task "app.js", ["bower"], ->
     gulpWebpack = require("gulp-webpack")
     webpackConfig = require("./config/webpack")
     sourceFiles = [
