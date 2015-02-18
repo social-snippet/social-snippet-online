@@ -8,16 +8,16 @@ define ["react"], (React)->
     StatusArea    = require("editor/views/status_area")
 
     constructor: (props)->
-      @state = {
-        source: props.source
-      }
+      @state = {}
+      @source = props.source
       @models = [
-        props.source
+        @source
       ]
 
     componentDidMount: ->
-      @getBackboneModels().forEach (model)=>
-        model.on "add change remove", @forceUpdate.bind(@, null), @
+      @source.on "add change remove", =>
+        @setState value: @source.getText()
+        @forceUpdate(null)
 
     componentWillUnmount: ->
       @getBackboneModels().forEach (model)=>
@@ -27,11 +27,14 @@ define ["react"], (React)->
       @models
 
     onSave: =>
-      @state.source.save()
+      @source.save()
         .then =>
-          EditorApp.vent.trigger "editor:show", @state.source
+          EditorApp.vent.trigger "editor:show", @source
         .then null, (err)=>
           throw err
+
+    onChangeSource: (event)=>
+      @source.set "text", event.target.value
 
     render: ->
       <div className="row">
@@ -40,7 +43,7 @@ define ["react"], (React)->
         </div>
         <div className="editor-area col-sm-10">
           <CodingActions onClickSave={this.onSave} />
-          <CodingArea source={this.state.source} />
+          <CodingArea value={this.state.value} source={this.source} onChange={this.onChangeSource} />
           <StatusArea />
         </div>
       </div>
