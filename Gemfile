@@ -7,6 +7,7 @@ gem "padrino", "~> 0.12"
 gem "slim"
 gem "mongoid"
 gem "social_snippet"
+gem "rack-parser"
 
 group :development do
   gem "rake"
