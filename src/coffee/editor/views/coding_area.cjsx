@@ -4,8 +4,8 @@ define ["react"], (React)->
 
     constructor: (props)->
       @state =
-        value: props.value || ""
+        text: props.defaultValue || ""
 
     render: ->
-      <textarea className="coding-area" value="#{this.state.value}" />
+      <textarea className="coding-area" defaultValue={this.state.text} />
 

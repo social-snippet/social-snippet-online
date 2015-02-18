@@ -4,7 +4,8 @@ define ["react"], (React)->
 
     render: ->
       <div className="coding-actions">
-        <button className="btn btn-sm btn-success">Compile</button>
-        <button className="btn btn-sm btn-success">Insert Snippet</button>
+        <button className="btn btn-sm btn-primary">Save</button>
+        <button className="btn btn-sm btn-default">Run</button>
+        <button className="btn btn-sm btn-default">Insert</button>
       </div>
 

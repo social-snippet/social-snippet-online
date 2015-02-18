@@ -14,8 +14,8 @@ define ["react"], (React)->
         </div>
         <div className="editor-area col-sm-10">
           <CodingActions />
-          <CodingArea value="edit here" />
-          <StatusArea value="" />
+          <CodingArea defaultValue="edit here" />
+          <StatusArea />
         </div>
       </div>
 
