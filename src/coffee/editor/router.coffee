@@ -6,6 +6,6 @@ define ["marionette"], (Marionette)->
       console.log "editor: init router"
 
     appRoutes:
-      "": "showNewSource"
-      "/sources/-/:id": "showSource"
+      "": "create"
+      "-/:id": "show"
 

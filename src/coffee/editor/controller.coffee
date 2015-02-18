@@ -2,16 +2,21 @@ define ["marionette", "react"], (Marionette, React)->
   
   class EditorController extends Marionette.Controller
 
+    EditView = require("editor/views/edit_view")
+
     initialize: ->
       console.log "editor: init controller"
-
-    showNewSource: ->
-      newSource = new EditorApp.Editor.Source
-
-      EditView = require("editor/views/edit_view")
       @mainContainer ||= document.getElementById("main-container")
-      React.render(React.createElement(EditView, {source: newSource}), @mainContainer)
 
-    showSource: (id)->
-      console.log arguments
+    create: ->
+      source = new EditorApp.Editor.Source
+      React.render(React.createElement(EditView, {source: source}), @mainContainer)
+
+    show: (id)->
+      source = new EditorApp.Editor.Source
+        id: id
+      React.render(React.createElement(EditView, {source: source}), @mainContainer)
+      source.fetch()
+        .then ->
+          console.log "loaded"
 
