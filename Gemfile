@@ -1,6 +1,8 @@
 # A sample Gemfile
 source "https://rubygems.org"
 
+ruby "2.2.0"
+
 gem "padrino", "~> 0.12"
 gem "slim"
 
