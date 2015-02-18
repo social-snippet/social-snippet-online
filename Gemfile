@@ -5,7 +5,7 @@ ruby "2.2.0"
 
 gem "padrino", "~> 0.12"
 gem "slim"
-
+gem "mongoid"
 gem "social_snippet"
 
 group :development do
@@ -17,3 +17,4 @@ group :development do
   gem "rspec"
   gem "rack-test"
 end
+
