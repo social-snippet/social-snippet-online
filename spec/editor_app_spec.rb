@@ -19,10 +19,36 @@ describe ::Editor::Application do
   end
 
   context "GET /webapi/sources/123" do
+
     before { get "/webapi/sources/123" }
     subject { last_response }
-    it { should be_ok }
-  end
+    it { should_not be_ok }
+
+    context "create model" do
+
+      before do
+        ::FactoryGirl.define do
+          factory "source-123", :class => ::Editor::Source do
+            _id "123"
+            text "hello-123"
+          end
+        end
+        ::FactoryGirl.create "source-123"
+      end
+
+      context "GET /webapi/sources/123" do
+        before { get "/webapi/sources/123" }
+        subject { last_response }
+        it { should be_ok }
+        context "result" do
+          let(:result) { ::JSON.parse last_response.body }
+          it { expect(result["text"]).to eq "hello-123" }
+        end
+      end
+
+    end # create mode
+
+  end # GET /webapi/sources/123
 
   context "POST /webapi/sources" do
     let(:params) do
@@ -46,10 +72,36 @@ describe ::Editor::Application do
   end
 
   context "PUT /webapi/sources/123" do
+
     before { put "/webapi/sources/123" }
     subject { last_response }
-    it { should be_ok }
-  end
+    it { should_not be_ok }
+
+    context "create model" do
+
+      before do
+        ::FactoryGirl.define do
+          factory "source-123", :class => ::Editor::Source do
+            _id "123"
+            text "hello-123"
+          end
+        end
+        ::FactoryGirl.create "source-123"
+      end
+
+      context "PUT /webapi/sources/123" do
+        before { put "/webapi/sources/123" }
+        subject { last_response }
+        it { should be_ok }
+        context "result" do
+          let(:result) { ::JSON.parse last_response.body }
+          it { expect(result["text"]).to eq "hello-123" }
+        end
+      end
+
+    end # create mode
+
+  end # PUT /webapi/sources/123
 
 end
 
