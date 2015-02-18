@@ -41,6 +41,7 @@ describe ::Editor::Application do
     context "parse json" do
       let(:result) { ::JSON.parse last_response.body }
       it { expect(result["text"]).to eq "hello" }
+      it { expect(result).to have_key "id" }
     end
   end
 
