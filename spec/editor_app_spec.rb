@@ -25,9 +25,23 @@ describe ::Editor::Application do
   end
 
   context "POST /webapi/sources" do
-    before { post "/webapi/sources" }
+    let(:params) do
+      {
+        "text" => "hello",
+      }
+    end
+    let(:headers) do
+      {
+        "Content-Type" => "application/json",
+      }
+    end
+    before { post "/webapi/sources", params, headers }
     subject { last_response }
     it { should be_ok }
+    context "parse json" do
+      let(:result) { ::JSON.parse last_response.body }
+      it { expect(result["text"]).to eq "hello" }
+    end
   end
 
   context "PUT /webapi/sources/123" do
