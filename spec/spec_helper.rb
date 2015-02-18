@@ -1,3 +1,4 @@
+RACK_ENV = "test" unless defined?(RACK_ENV)
 require_relative "../config/boot"
 
 #
