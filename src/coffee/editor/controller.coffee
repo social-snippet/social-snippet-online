@@ -6,7 +6,7 @@ define ["marionette", "react"], (Marionette, React)->
       console.log "editor: init controller"
 
     showNewText: ->
-      TextArea = require("editor/views/text_area")
+      EditView = require("editor/views/edit_view")
       @mainContainer ||= document.getElementById("main-container")
-      React.render(React.createElement(TextArea, null), @mainContainer)
+      React.render(React.createElement(EditView, null), @mainContainer)
 

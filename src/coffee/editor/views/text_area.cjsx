@@ -2,9 +2,10 @@ define ["react"], (React)->
 
   class TextArea extends React.Component
 
-    constructor: ->
-      @state 
+    constructor: (props)->
+      @state =
+        value: props.value
 
     render: ->
-      <textarea className="editor" value="edit here" />
+      <textarea className="ssnip-editor" value="#{this.state.value}" />
 
