@@ -14,7 +14,6 @@ before_install:
   - bower prune
   - travis_retry npm update
   - travis_retry bower update
-  - travis_retry bundle update
 
 install:
   - travis_retry bundle install -j4 --path vendor/bundle
