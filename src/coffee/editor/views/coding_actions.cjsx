@@ -2,10 +2,19 @@ define ["react"], (React)->
 
   class CodingActions extends React.Component
 
+    onClickSave: =>
+      @props.onClickSave()
+
+    onClickRun: =>
+      @props.onClickRun()
+
+    onClickInsert: =>
+      @props.onClickInsert()
+
     render: ->
       <div className="coding-actions">
-        <button className="btn btn-sm btn-primary"><i className="fa fa-save" /> Save</button>
-        <button className="btn btn-sm btn-default"><i className="fa fa-play-circle" /> Run</button>
-        <button className="btn btn-sm btn-default"><i className="fa fa-download" /> Insert</button>
+        <button onClick={this.onClickSave} className="btn btn-sm btn-primary"><i className="fa fa-save" /> Save</button>
+        <button onClick={this.onClickRun} className="btn btn-sm btn-default"><i className="fa fa-play-circle" /> Run</button>
+        <button onClick={this.onClickInsert} className="btn btn-sm btn-default"><i className="fa fa-download" /> Insert</button>
       </div>
 
