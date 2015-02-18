@@ -5,7 +5,11 @@ define ["marionette"], (Marionette)->
     Editor.Controller = require("editor/controller")
     Editor.Source = require("editor/source/source")
 
+    # init router
     EditorApp.addInitializer ->
-      new Editor.Router
+      router = new Editor.Router
         controller: new Editor.Controller
+      EditorApp.vent.on "editor:show", (source)->
+        router.navigate "/-/#{source.id}"
+
 

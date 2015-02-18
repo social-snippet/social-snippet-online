@@ -28,8 +28,10 @@ define ["react"], (React)->
 
     onSave: =>
       @state.source.save()
-        .then ->
-          console.log "save ok"
+        .then =>
+          EditorApp.vent.trigger "editor:show", @state.source
+        .then null, (err)=>
+          throw err
 
     render: ->
       <div className="row">
