@@ -21,18 +21,21 @@ else
 module.exports =
 
   entry:
-    "editor": "editor"
+    "app": "app"
 
   resolve:
     root: [
       path.join(__dirname, "../bower_components")
-      path.join(__dirname, "../node_modules")
+      path.join(__dirname, "../node_modules/react")
       path.join(__dirname, "../src/coffee")
     ]
 
     extensions: [
       ""
       ".coffee"
+      ".cjsx"
+      ".js"
+      ".jsx"
     ]
 
   output:
@@ -44,6 +47,7 @@ module.exports =
   module:
     loaders: [
       { test: /\.coffee$/, loader: "coffee" }
+      { test: /\.cjsx$/, loader: "transform?coffee-reactify" }
     ] 
 
   plugins: webpackPlugins
