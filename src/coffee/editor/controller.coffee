@@ -15,8 +15,7 @@ define ["marionette", "react"], (Marionette, React)->
     show: (id)->
       source = new EditorApp.Editor.Source
         id: id
-      React.render(React.createElement(EditView, {source: source}), @mainContainer)
       source.fetch()
-        .then ->
-          console.log "loaded"
+        .then =>
+          React.render(React.createElement(EditView, {source: source}), @mainContainer)
 
