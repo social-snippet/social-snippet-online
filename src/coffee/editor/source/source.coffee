@@ -3,7 +3,10 @@ define ["backbone"], (Backbone)->
   class Source extends Backbone.Model
 
     url: ->
-      "/webapi/sources"
+      if @id
+        "/webapi/sources/#{@id}"
+      else
+        "/webapi/sources"
 
     defaults: ->
       text: "edit here"
