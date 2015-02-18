@@ -13,7 +13,10 @@ GEM
     bson (2.3.0)
     builder (3.2.2)
     connection_pool (2.1.1)
+    database_cleaner (1.4.0)
     diff-lcs (1.2.5)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
     highline (1.6.21)
     http_router (0.11.1)
       rack (>= 1.0.0)
@@ -31,6 +34,8 @@ GEM
       moped (~> 2.0.0)
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
+    mongoid-tree (2.0.0)
+      mongoid (>= 4.0, <= 5.0)
     moped (2.0.3)
       bson (~> 2.2)
       connection_pool (~> 2.0)
@@ -126,7 +131,10 @@ PLATFORMS
 
 DEPENDENCIES
   bundler
+  database_cleaner
+  factory_girl
   mongoid
+  mongoid-tree
   padrino (~> 0.12)
   rack-test
   rake
