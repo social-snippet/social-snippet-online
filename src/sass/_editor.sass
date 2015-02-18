@@ -1,7 +1,39 @@
-.ssnip-editor
+.coding-area
   & // colors
     background: rgba(0, 0, 0, 1)
     color: rgba(255, 255, 255, 1)
-  & // sizing
+
+  & // sizing, spacing
     width: 100%
     min-height: 400px
+    padding: 0
+
+.status-area
+  & // sizing, spacing
+    width: 100%
+    min-height: 88px
+    padding: 0
+
+  & // color
+    background: rgba(51, 51, 51, 1)
+    color: rgba(255, 255, 255, 1)
+
+.coding-actions
+  & // color
+    background: rgba(51, 51, 51, 1)
+  button
+    border-radius: 0
+
+.action-list
+  .list-group-item
+    & // font
+      font-weight: bold
+    & // colors
+      background: rgba(0, 0, 255, 1)
+      color: rgba(255, 255, 255, 1)
+
+  .list-group-item:hover
+    & // misc
+      cursor: pointer
+    & // colors
+      background: rgba(0, 102, 255, 1)

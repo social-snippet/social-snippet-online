@@ -2,16 +2,20 @@ define ["react"], (React)->
 
   class EditView extends React.Component
 
-    TextArea = require("editor/views/text_area")
-    ActionList = require("editor/views/action_list")
+    CodingArea    = require("editor/views/coding_area")
+    EditorActions = require("editor/views/editor_actions")
+    CodingActions = require("editor/views/coding_actions")
+    StatusArea    = require("editor/views/status_area")
 
     render: ->
       <div className="row">
         <div className="col-sm-2">
-          <ActionList />
+          <EditorActions />
         </div>
-        <div className="col-sm-10">
-          <TextArea value="edit here" />
+        <div className="editor-area col-sm-10">
+          <CodingActions />
+          <CodingArea value="edit here" />
+          <StatusArea value="" />
         </div>
       </div>
 
