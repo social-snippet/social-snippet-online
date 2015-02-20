@@ -40,7 +40,7 @@ describe ::Editor::Application do
         before { get "/webapi/sources/123" }
         subject { last_response }
         it { should be_ok }
-        context "result" do
+        context "parse json" do
           let(:result) { ::JSON.parse last_response.body }
           it { expect(result["text"]).to eq "hello-123" }
         end
@@ -73,7 +73,19 @@ describe ::Editor::Application do
 
   context "PUT /webapi/sources/123" do
 
-    before { put "/webapi/sources/123" }
+    let(:params) do
+      {
+        "text" => "hello-123-updated",
+      }
+    end
+
+    let(:headers) do
+      {
+        "Content-Type" => "application/json",
+      }
+    end
+
+    before { put "/webapi/sources/123", params, headers }
     subject { last_response }
     it { should_not be_ok }
 
@@ -90,13 +102,24 @@ describe ::Editor::Application do
       end
 
       context "PUT /webapi/sources/123" do
-        before { put "/webapi/sources/123" }
+        before { put "/webapi/sources/123", params, headers }
         subject { last_response }
         it { should be_ok }
-        context "result" do
+        context "parse json" do
           let(:result) { ::JSON.parse last_response.body }
-          it { expect(result["text"]).to eq "hello-123" }
+          it { expect(result["text"]).to eq "hello-123-updated" }
         end
+
+        context "GET /webapi/sources/123" do
+          before { get "/webapi/sources/123" }
+          subject { last_response }
+          it { should be_ok }
+          context "parse json" do
+            let(:result) { ::JSON.parse last_response.body }
+            it { expect(result["text"]).to eq "hello-123-updated" }
+          end
+        end
+
       end
 
     end # create mode
