@@ -1,13 +1,17 @@
-class Editor::Source
+module Editor::Models
 
-  include ::Mongoid::Document
+  class Source
 
-  field :text, :type => String
+    include ::Mongoid::Document
 
-  def as_json(options = {})
-    attrs = super(options)
-    attrs["id"] = attrs["_id"].to_s
-    attrs
+    field :text, :type => String
+
+    def as_json(options = {})
+      attrs = super(options)
+      attrs["id"] = attrs["_id"].to_s
+      attrs
+    end
+
   end
 
 end
