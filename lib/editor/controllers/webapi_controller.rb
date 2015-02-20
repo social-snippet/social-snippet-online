@@ -7,9 +7,6 @@ require "rack/parser"
     "application/json" => proc {|data| ::JSON.parse data }
   }
 
-  get :sources do
-  end
-
   post :sources, :provides => :json do
     source = ::Editor::Models::Source.create!(:text => params["text"], :language => params["language"])
     source.as_json.to_json
