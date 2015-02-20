@@ -12,7 +12,7 @@ require "rack/parser"
     source.as_json.to_json
   end
 
-  put :sources, :with => [:id] do
+  put :sources, :with => [:id], :provides => :json do
     begin
       source = ::Editor::Models::Source.find(params[:id])
       source.text = params["text"] unless params["text"].nil?
@@ -25,10 +25,20 @@ require "rack/parser"
     end
   end
   
-  get :sources, :with => [:id] do
+  get :sources, :with => [:id], :provides => :json do
     begin
       source = ::Editor::Models::Source.find(params[:id])
       source.as_json.to_json
+    rescue ::Mongoid::Errors::DocumentNotFound => e
+      status 404
+      "error"
+    end
+  end
+
+  post :statuses, :provides => :json do
+    begin
+      status = ::Editor::Models::Status.submit(params[:source_id])
+      status.as_json.to_json
     rescue ::Mongoid::Errors::DocumentNotFound => e
       status 404
       "error"

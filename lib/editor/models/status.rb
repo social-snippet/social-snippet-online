@@ -11,21 +11,19 @@ module Editor::Models
     field :status,  :type => Integer
     field :result,  :type => Integer
 
-    def self.submit(source)
-      status = Status.create(:token => token)
-      ideone = ::Ideone.new(IDEONE_USER_ID, IDEONE_USER_PW)
+    has_one :source, :class_name => "::Editor::Models::Source"
 
-      token = ideone.create_submission(source.text, )
-
-      status.update_attributes!(
-        :token 
-      )
+    def self.submit(source_id)
+      source = Source.find(source_id)
+      ideone = ::Ideone.new(IDEONE_API_ID, IDEONE_API_PW)
+      token  = ideone.create_submission(source.text, source.language)
+      Status.create(:token => token)
     end
 
     private
 
-    IDEONE_USER_ID = ENV["IDEONE_USER_ID"]
-    IDEONE_USER_PW = ENV["IDEONE_USER_PW"]
+    IDEONE_API_ID = ENV["IDEONE_API_ID"]
+    IDEONE_API_PW = ENV["IDEONE_API_PW"]
 
     STATUS_IN_QUEUE     = -1
     STATUS_DONE         = 0
