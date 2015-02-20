@@ -10,6 +10,7 @@ define ["backbone"], (Backbone)->
 
     defaults: ->
       text: "edit here"
+      language: "1"
 
     initialize: ->
       console.log "text: initialize"
