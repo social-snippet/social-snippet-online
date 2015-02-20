@@ -1,9 +1,10 @@
 define ["marionette"], (Marionette)->
 
   EditorApp.module "Editor", (Editor)->
-    Editor.Router = require("editor/router")
+    Editor.Router     = require("editor/router")
     Editor.Controller = require("editor/controller")
-    Editor.Source = require("editor/source/source")
+    Editor.Source     = require("editor/source/source")
+    Editor.Status     = require("editor/source/status")
 
     # init router
     EditorApp.addInitializer ->
@@ -12,7 +13,4 @@ define ["marionette"], (Marionette)->
 
       EditorApp.vent.on "editor:show", (source)->
         router.navigate "/-/#{source.id}"
-
-      EditorApp.vent.on "editor:run", (source)->
-        console.log "submit source?"
 

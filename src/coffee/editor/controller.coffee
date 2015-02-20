@@ -27,7 +27,7 @@ define ["marionette", "react"], (Marionette, React)->
         .then =>
           EditorApp.vent.trigger "message", {
             type: "System"
-            text: "Loaded."
+            text: "Loaded"
           }
           editor.setState
             source: source

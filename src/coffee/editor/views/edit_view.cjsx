@@ -28,27 +28,36 @@ define ["react"], (React)->
     getBackboneModels: ->
       @models
 
-    save: =>
+    showMessage = (text)->
       EditorApp.vent.trigger "message", {
         type: "System"
-        text: "Saving Data..."
+        text: text
       }
+
+    showErrorMessage = (text)->
+      EditorApp.vent.trigger "message", {
+        type: "Error"
+        text: text
+      }
+
+    save: =>
+      showMessage "Saving Data..."
       @source.save()
         .then =>
-          EditorApp.vent.trigger "message", {
-            type: "System"
-            text: "Saved."
-          }
+          showMessage "Saved"
           EditorApp.vent.trigger "editor:show", @source
         .then null, (err)=>
-          EditorApp.vent.trigger "message", {
-            type: "Error"
-            text: err
-          }
+          showErrorMessage err
           throw err
 
     run: =>
-      EditorApp.vent.trigger "editor:run", @source
+      status = new EditorApp.Editor.Status
+        source_id: @source.id
+      showMessage "Sending Source..."
+      status.save()
+        .then ->
+          showMessage "Sent"
+          showMessage "Waiting Result..."
 
     onChangeSource: (event)=>
       @source.set "text", event.target.value
