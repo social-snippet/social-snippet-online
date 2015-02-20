@@ -7,9 +7,13 @@ define ["react", "underscore"], (React, _)->
       @state =
         text: text
 
+      padding = (s)->
+        s = "#{s}"
+        "00".slice(s.length) + s
+
       EditorApp.vent.on "message", (message)=>
         date = new Date
-        dateText = "#{date.getHours()}:#{date.getMinutes()}:#{date.getSeconds()}"
+        dateText = "#{padding date.getHours()}:#{padding date.getMinutes()}:#{padding date.getSeconds()}"
         text = "[#{dateText}] #{message.type}: #{message.text}\n" + text
         @setState
           text: text
