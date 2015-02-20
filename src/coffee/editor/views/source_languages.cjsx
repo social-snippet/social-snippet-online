@@ -4,10 +4,10 @@ define ["react", "underscore"], (React, _)->
 
     constructor: (props)->
       @options = _(languages).map (id, name)->
-        <option value={id}>{name}</option>
+        <option key={id} value={id}>{name}</option>
 
     render: ->
-      <select>{this.options}</select>
+      <select onChange={this.props.onChange} defaultValue={this.props.defaultValue} className="languages form-control">{this.options}</select>
 
     # ideone's language: name => id
     languages =

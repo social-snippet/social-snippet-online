@@ -40,6 +40,9 @@ define ["react"], (React)->
     onChangeSource: (event)=>
       @source.set "text", event.target.value
 
+    onChangeLanguage: (event)=>
+      @source.set "language", event.target.value
+
     render: ->
       <div className="row">
         <div className="col-sm-2">
@@ -48,7 +51,9 @@ define ["react"], (React)->
         <div className="editor-area col-sm-10">
           <CodingActions onClickSave={this.save}
             onClickRun={this.run} />
-          <SourceInfo source={this.source} />
+          <SourceInfo source={this.source}
+            onChangeLanguage={this.onChangeLanguage}
+            defaultLanguage={this.source.get "language"} />
           <CodingArea value={this.state.value}
             source={this.source}
             onChange={this.onChangeSource} />

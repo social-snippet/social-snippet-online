@@ -6,6 +6,6 @@ define ["react"], (React)->
 
     render: ->
       <div className="source-info">
-        <SourceLanguages />
+        <SourceLanguages defaultValue={this.props.defaultLanguage} onChange={this.props.onChangeLanguage} selected={this.props.defaultLanguage} />
       </div>
 
