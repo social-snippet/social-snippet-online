@@ -2,7 +2,7 @@ define ["react", "underscore"], (React, _)->
 
   class SourceLanguages extends React.Component
 
-    constructor: (props)->
+    constructor: ->
       @options = _(languages).map (id, name)->
         <option key={id} value={id}>{name}</option>
 

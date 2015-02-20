@@ -9,7 +9,8 @@ define ["react"], (React)->
     SourceInfo    = require("editor/views/source_info")
 
     constructor: (props)->
-      @state = {}
+      @state =
+        source: props.source
       @source = props.source
       @models = [
         @source
@@ -17,7 +18,7 @@ define ["react"], (React)->
 
     componentDidMount: ->
       @source.on "add change remove", =>
-        @setState value: @source.getText()
+        @setState source: @source
         @forceUpdate(null)
 
     componentWillUnmount: ->
@@ -28,10 +29,22 @@ define ["react"], (React)->
       @models
 
     save: =>
+      EditorApp.vent.trigger "message", {
+        type: "System"
+        text: "Saving Data..."
+      }
       @source.save()
         .then =>
+          EditorApp.vent.trigger "message", {
+            type: "System"
+            text: "Saved."
+          }
           EditorApp.vent.trigger "editor:show", @source
         .then null, (err)=>
+          EditorApp.vent.trigger "message", {
+            type: "Error"
+            text: err
+          }
           throw err
 
     run: =>
@@ -51,11 +64,9 @@ define ["react"], (React)->
         <div className="editor-area col-sm-10">
           <CodingActions onClickSave={this.save}
             onClickRun={this.run} />
-          <SourceInfo source={this.source}
-            onChangeLanguage={this.onChangeLanguage}
-            defaultLanguage={this.source.get "language"} />
-          <CodingArea value={this.state.value}
-            source={this.source}
+          <SourceInfo source={this.state.source}
+            onChangeLanguage={this.onChangeLanguage} />
+          <CodingArea source={this.state.source}
             onChange={this.onChangeSource} />
           <StatusArea />
         </div>

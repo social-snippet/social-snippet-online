@@ -1,11 +1,19 @@
-define ["react"], (React)->
+define ["react", "underscore"], (React, _)->
 
   class StatusArea extends React.Component
 
     constructor: (props)->
+      text = props.value || ""
       @state =
-        value: props.value || ""
+        text: text
+
+      EditorApp.vent.on "message", (message)=>
+        date = new Date
+        dateText = "#{date.getHours()}:#{date.getMinutes()}:#{date.getSeconds()}"
+        text = "[#{dateText}] #{message.type}: #{message.text}\n" + text
+        @setState
+          text: text
 
     render: ->
-      <textarea className="status-area" value="#{this.state.value}" />
+      <textarea readOnly className="status-area" value="#{this.state.text}" />
 

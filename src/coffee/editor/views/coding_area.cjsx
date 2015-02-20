@@ -3,8 +3,9 @@ define ["react"], (React)->
   class CodingArea extends React.Component
 
     constructor: (props)->
-      @value = props.source.getText()
+      @state =
+        source: props.source
 
     render: ->
-      <textarea className="coding-area" defaultValue={this.value} onChange={this.props.onChange} />
+      <textarea className="coding-area" value={this.props.source.getText()} onChange={this.props.onChange} />
 
