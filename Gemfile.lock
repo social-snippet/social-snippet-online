@@ -10,6 +10,9 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    akami (1.2.2)
+      gyoku (>= 0.4.0)
+      nokogiri
     bson (2.3.0)
     builder (3.2.2)
     connection_pool (2.1.1)
@@ -17,16 +20,24 @@ GEM
     diff-lcs (1.2.5)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
+    gyoku (1.1.1)
+      builder (>= 2.1.2)
     highline (1.6.21)
     http_router (0.11.1)
       rack (>= 1.0.0)
       url_mount (~> 0.2.1)
+    httpi (2.1.1)
+      rack
+      rubyntlm (~> 0.3.2)
     i18n (0.7.0)
+    ideone-ruby-api (2.1.2)
+      savon (~> 2.3.3)
     json (1.8.2)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
+    mini_portile (0.6.2)
     minitest (5.5.1)
     moneta (0.7.20)
     mongoid (4.0.1)
@@ -41,6 +52,9 @@ GEM
       connection_pool (~> 2.0)
       optionable (~> 0.2.0)
     netrc (0.10.2)
+    nokogiri (1.6.6.2)
+      mini_portile (~> 0.6.0)
+    nori (2.3.0)
     optionable (0.2.0)
     origin (2.1.1)
     padrino (0.12.4)
@@ -102,7 +116,16 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.1)
+    rubyntlm (0.3.4)
     rugged (0.21.4)
+    savon (2.3.3)
+      akami (~> 1.2.0)
+      builder (>= 2.1.2)
+      gyoku (~> 1.1.0)
+      httpi (~> 2.1.0)
+      nokogiri (>= 1.4.0)
+      nori (~> 2.3.0)
+      wasabi (~> 3.2.2)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -127,6 +150,10 @@ GEM
     url_mount (0.2.1)
       rack
     version_sorter (1.1.0)
+    wasabi (3.2.3)
+      httpi (~> 2.0)
+      mime-types (< 2.0.0)
+      nokogiri (>= 1.4.0)
 
 PLATFORMS
   ruby
@@ -135,6 +162,7 @@ DEPENDENCIES
   bundler
   database_cleaner
   factory_girl
+  ideone-ruby-api
   mongoid
   mongoid-tree
   padrino (~> 0.12)

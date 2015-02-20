@@ -6,8 +6,10 @@ ruby "2.2.0"
 gem "padrino", "~> 0.12"
 gem "slim"
 gem "mongoid"
-gem "social_snippet"
 gem "rack-parser"
+
+gem "social_snippet"
+gem "ideone-ruby-api"
 
 group :development do
   gem "rake"
@@ -20,5 +22,9 @@ group :test do
   gem "rack-test"
   gem "database_cleaner"
   gem "factory_girl"
+end
+
+if ENV["SOCIAL_SNIPPET_DEBUG"] == "true"
+  gem "pry-byebug"
 end
 
