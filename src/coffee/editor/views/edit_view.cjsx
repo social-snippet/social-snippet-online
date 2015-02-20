@@ -26,7 +26,7 @@ define ["react"], (React)->
     getBackboneModels: ->
       @models
 
-    onSave: =>
+    save: =>
       @source.save()
         .then =>
           EditorApp.vent.trigger "editor:show", @source
@@ -42,8 +42,11 @@ define ["react"], (React)->
           <EditorActions />
         </div>
         <div className="editor-area col-sm-10">
-          <CodingActions onClickSave={this.onSave} />
-          <CodingArea value={this.state.value} source={this.source} onChange={this.onChangeSource} />
+          <CodingActions onClickSave={this.save}
+            onClickRun={this.run} />
+          <CodingArea value={this.state.value}
+            source={this.source}
+            onChange={this.onChangeSource} />
           <StatusArea />
         </div>
       </div>
