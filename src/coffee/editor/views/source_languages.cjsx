@@ -2,12 +2,14 @@ define ["react", "underscore"], (React, _)->
 
   class SourceLanguages extends React.Component
 
-    constructor: ->
+    constructor: (props)->
+      @state =
+        source: props.source
       @options = _(languages).map (id, name)->
         <option key={id} value={id}>{name}</option>
 
     render: ->
-      <select onChange={this.props.onChange} defaultValue={this.props.defaultValue} className="languages form-control">{this.options}</select>
+      <select onChange={this.props.onChange} value={this.state.source.get "language"} className="languages form-control">{this.options}</select>
 
     # ideone's language: name => id
     languages =
