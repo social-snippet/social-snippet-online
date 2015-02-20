@@ -7,5 +7,5 @@ define ["react"], (React)->
         source: props.source
 
     render: ->
-      <textarea className="coding-area" value={this.props.source.getText()} onChange={this.props.onChange} />
+      <textarea id="rich-editor" className="coding-area" value={this.props.source.getText()} onChange={this.props.onChange} />
 
