@@ -5,6 +5,7 @@ module Editor::Models
     include ::Mongoid::Document
 
     field :text, :type => String
+    field :language, :type => Integer
 
     def as_json(options = {})
       attrs = super(options)
