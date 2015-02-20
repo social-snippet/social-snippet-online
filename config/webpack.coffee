@@ -43,6 +43,7 @@ module.exports =
 
   externals:
     "jquery": "jQuery"
+    "ace": "ace"
 
   module:
     loaders: [
