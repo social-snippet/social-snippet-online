@@ -3,13 +3,13 @@ define ["react"], (React)->
   class CodingActions extends React.Component
 
     onClickSave: =>
-      @props.onClickSave()
+      @props.onClickSave() if @props.onClickSave is Function
 
     onClickRun: =>
-      @props.onClickRun()
+      @props.onClickRun() if @props.onClickRun is Function
 
     onClickInsert: =>
-      @props.onClickInsert()
+      @props.onClickInsert() if @props.onClickInsert is Function
 
     render: ->
       <div className="coding-actions">
