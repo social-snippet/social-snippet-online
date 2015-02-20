@@ -21,11 +21,6 @@ define ["react"], (React)->
         @setState source: @source
         @forceUpdate(null)
 
-      @richEditor = ace.edit("rich-editor")
-      @richEditor.getSession().setUseWorker(false)
-      @richEditor.setTheme("ace/theme/monokai")
-      @richEditor.getSession().setMode("ace/mode/c_cpp")
-
     componentWillUnmount: ->
       @getBackboneModels().forEach (model)=>
         model.off null, null, @
