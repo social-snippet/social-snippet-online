@@ -6,6 +6,7 @@ define ["react"], (React)->
     EditorActions = require("editor/views/editor_actions")
     CodingActions = require("editor/views/coding_actions")
     StatusArea    = require("editor/views/status_area")
+    SourceInfo    = require("editor/views/source_info")
 
     constructor: (props)->
       @state = {}
@@ -33,6 +34,9 @@ define ["react"], (React)->
         .then null, (err)=>
           throw err
 
+    run: =>
+      EditorApp.vent.trigger "editor:run", @source
+
     onChangeSource: (event)=>
       @source.set "text", event.target.value
 
@@ -44,6 +48,7 @@ define ["react"], (React)->
         <div className="editor-area col-sm-10">
           <CodingActions onClickSave={this.save}
             onClickRun={this.run} />
+          <SourceInfo source={this.source} />
           <CodingArea value={this.state.value}
             source={this.source}
             onChange={this.onChangeSource} />

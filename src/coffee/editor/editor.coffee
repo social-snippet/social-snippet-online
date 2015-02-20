@@ -9,7 +9,10 @@ define ["marionette"], (Marionette)->
     EditorApp.addInitializer ->
       router = new Editor.Router
         controller: new Editor.Controller
+
       EditorApp.vent.on "editor:show", (source)->
         router.navigate "/-/#{source.id}"
 
+      EditorApp.vent.on "editor:run", (source)->
+        console.log "submit source?"
 
