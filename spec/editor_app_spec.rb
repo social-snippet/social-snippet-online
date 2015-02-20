@@ -12,12 +12,6 @@ describe ::Editor::Application do
     it { should be_ok }
   end
 
-  context "GET /webapi/sources" do
-    before { get "/webapi/sources" }
-    subject { last_response }
-    it { should be_ok }
-  end
-
   context "GET /webapi/sources/123" do
 
     before { get "/webapi/sources/123" }
