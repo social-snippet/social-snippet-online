@@ -15,3 +15,6 @@ define ["backbone"], (Backbone)->
     getText: ->
       @get "text"
 
+    getLanguage: ->
+      parseInt(@get "language", 10)
+
