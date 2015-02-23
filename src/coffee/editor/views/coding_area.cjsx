@@ -121,106 +121,106 @@ define ["react"], (React)->
         "text"
 
     modeAda = (name)->
-      /^Ada/.test name
+      /^Ada/.test(name)
 
     modeAssembler = (name)->
-      /^Assembler/.test name
+      /^Assembler/.test(name)
 
     modeAwk = (name)->
-      /^AWK/.test name
+      /^AWK/.test(name)
 
     modeShell = (name)->
-      /^Bash/.test name
+      /^Bash/.test(name)
 
     modeBc = (name)->
-      /^bc/.test name
+      /^bc/.test(name)
 
     modeC = (name)->
-      /^C\+\+/.test name ||
-        /^C99/.test name ||
-        /^C$/.test name
+      /^C\+\+/.test(name) ||
+        /^C99/.test(name) ||
+        /^C$/.test(name)
 
     modeCSharp = (name)->
-      /^C#/.test name
+      /^C#/.test(name)
 
     modeCOBOL = (name)->
-      /^COBOL/.test name
+      /^COBOL/.test(name)
 
     modeClojure = (name)->
-      /^Clojure/.test name
+      /^Clojure/.test(name)
 
     modeD = (name)->
-      /^D$/.test name ||
-        /^D \(dmd\)$/.test name
+      /^D$/.test(name) ||
+        /^D \(dmd\)$/.test(name)
 
     modeErlang = (name)->
-      /^Erlang/.test name
+      /^Erlang/.test(name)
 
     modeForth = (name)->
-      /^Forth/.test name
+      /^Forth/.test(name)
 
     modeGo = (name)->
-      /^Go$/.test name
+      /^Go$/.test(name)
 
     modeGroovy = (name)->
-      /^Groovy/.test name
+      /^Groovy/.test(name)
 
     modeHaskell = (name)->
-      /^Haskell/.test name
+      /^Haskell/.test(name)
 
     modeJava = (name)->
-      /^Java$/.test name ||
-        /^Java7$/.test name
+      /^Java$/.test(name) ||
+        /^Java7$/.test(name)
 
     modeJavaScript = (name)->
-      /^JavaScript/.test name ||
-        /^Node\.js/.test name
+      /^JavaScript/.test(name) ||
+        /^Node\.js/.test(name)
 
     modeLua = (name)->
-      /^Lua/.test name
+      /^Lua/.test(name)
 
     modeLisp = (name)->
-      /^CLIPS$/.test name ||
-        /^Common Lisp/.test name
+      /^CLIPS$/.test(name) ||
+        /^Common Lisp/.test(name)
 
     modeObjectiveC = (name)->
-      /^Objective/.test name
+      /^Objective/.test(name)
 
     modeOCaml = (name)->
-      /^Ocaml/.test name
+      /^Ocaml/.test(name)
 
     modePascal = (name)->
-      /^Pascal/.test name
+      /^Pascal/.test(name)
 
     modePerl = (name)->
-      /^Perl/.test name
+      /^Perl/.test(name)
 
     modePHP = (name)->
-      /^PHP/.test name
+      /^PHP/.test(name)
 
     modeProlog = (name)->
-      /^Prolog/.test name
+      /^Prolog/.test(name)
 
     modePython = (name)->
-      /^Python/.test name
+      /^Python/.test(name)
 
     modeR = (name)->
-      /^R$/.test name
+      /^R$/.test(name)
 
     modeRuby = (name)->
-      /^Ruby$/.test name
+      /^Ruby$/.test(name)
 
     modeScala = (name)->
-      /^Scala/.test name
+      /^Scala/.test(name)
 
     modeScheme = (name)->
-      /^Scheme/.test name
+      /^Scheme/.test(name)
 
     modeTcl = (name)->
-      /^Tcl/.test name
+      /^Tcl/.test(name)
 
     modeVB = (name)->
-      /^VB\.NET/.test name
+      /^VB\.NET/.test(name)
 
     numToLang =
       7: "Ada"
