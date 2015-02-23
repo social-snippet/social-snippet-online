@@ -15,6 +15,7 @@ module Editor::Models
     field :memory,  :type => Integer
     field :signal,  :type => Integer
     field :compile_info, :type => String
+    field :lang_version, :type => String
 
     has_one :source, :class_name => "::Editor::Models::Source"
 
@@ -44,8 +45,8 @@ module Editor::Models
       status = wait_submission_status(ideone, token)
       details = wait_submission_details(ideone, token)
 
-      status = Status.create!(:token  => token)
-      status.update_attributes!(
+      Status.new(
+        :token => token,
         :status => details["status"].to_i,
         :result => details["result"].to_i,
         :input  => details["input"],
@@ -53,8 +54,8 @@ module Editor::Models
         :memory => details["memory"].to_i,
         :signal => details["signal"].to_i,
         :compile_info => details["cmpinfo"],
+        :lang_version => details["langVersion"],
       )
-      status
     end
 
     private
