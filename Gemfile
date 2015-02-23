@@ -6,6 +6,7 @@ ruby "2.2.0"
 gem "padrino", "~> 0.12"
 gem "slim"
 gem "mongoid"
+gem "mongoid_token"
 gem "rack-parser"
 
 gem "social_snippet"
