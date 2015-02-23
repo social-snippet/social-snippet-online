@@ -52,16 +52,48 @@ define ["react"], (React)->
         "forth"
       else if modeGo(name)
         "golang"
+      else if modeGroovy(name)
+        "groovy"
+      else if modeHaskell(name)
+        "haskell"
+      else if modeJava(name)
+        "java"
+      else if modeJavaScript(name)
+        "javascript"
+      else if modeLua(name)
+        "lua"
       else if modeLisp(name)
         "lisp"
+      else if modeObjectiveC(name)
+        "objectivec"
+      else if modeOCaml(name)
+        "ocaml"
+      else if modePascal(name)
+        "pascal"
       else if modePerl(name)
         "perl"
+      else if modePHP(name)
+        "php"
+      else if modeProlog(name)
+        "prolog"
+      else if modePython(name)
+        "python"
+      else if modeR(name)
+        "r"
       else if modeRuby(name)
         "ruby"
+      else if modeScala(name)
+        "scala"
+      else if modeScheme(name)
+        "scheme"
       else if modeShell(name)
         "sh"
+      else if modeTcl(name)
+        "tcl"
+      else if modeVB(name)
+        "vbscript"
       else # not supported
-        "c_cpp"
+        "text"
 
     modeAda = (name)->
       /^Ada/.test name
@@ -92,6 +124,10 @@ define ["react"], (React)->
     modeClojure = (name)->
       /^Clojure/.test name
 
+    modeD = (name)->
+      /^D$/.test name ||
+        /^D \(dmd\)$/.test name
+
     modeErlang = (name)->
       /^Erlang/.test name
 
@@ -101,19 +137,65 @@ define ["react"], (React)->
     modeGo = (name)->
       /^Go$/.test name
 
-    modeRuby = (name)->
-      /^Ruby$/.test name
+    modeGroovy = (name)->
+      /^Groovy/.test name
 
-    modeD = (name)->
-      /^D$/.test name ||
-        /^D \(dmd\)$/.test name
+    modeHaskell = (name)->
+      /^Haskell/.test name
+
+    modeJava = (name)->
+      /^Java$/.test name ||
+        /^Java7$/.test name
+
+    modeJavaScript = (name)->
+      /^JavaScript/.test name ||
+        /^Node\.js/.test name
+
+    modeLua = (name)->
+      /^Lua/.test name
 
     modeLisp = (name)->
       /^CLIPS$/.test name ||
         /^Common Lisp/.test name
 
+    modeObjectiveC = (name)->
+      /^Objective/.test name
+
+    modeOCaml = (name)->
+      /^Ocaml/.test name
+
+    modePascal = (name)->
+      /^Pascal/.test name
+
     modePerl = (name)->
       /^Perl/.test name
+
+    modePHP = (name)->
+      /^PHP/.test name
+
+    modeProlog = (name)->
+      /^Prolog/.test name
+
+    modePython = (name)->
+      /^Python/.test name
+
+    modeR = (name)->
+      /^R$/.test name
+
+    modeRuby = (name)->
+      /^Ruby$/.test name
+
+    modeScala = (name)->
+      /^Scala/.test name
+
+    modeScheme = (name)->
+      /^Scheme/.test name
+
+    modeTcl = (name)->
+      /^Tcl/.test name
+
+    modeVB = (name)->
+      /^VB\.NET/.test name
 
     numToLang =
       7: "Ada"
