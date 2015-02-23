@@ -23,7 +23,7 @@ describe ::Editor::Application do
       before do
         ::FactoryGirl.define do
           factory "source-123", :class => ::Editor::Models::Source do
-            _id "123"
+            token "123"
             text "hello-123"
           end
         end
@@ -88,7 +88,7 @@ describe ::Editor::Application do
       before do
         ::FactoryGirl.define do
           factory "source-123", :class => ::Editor::Models::Source do
-            _id "123"
+            token "123"
             text "hello-123"
           end
         end
