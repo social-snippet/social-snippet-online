@@ -3,6 +3,7 @@ PADRINO_ROOT = ::File.expand_path("../..", __FILE__) unless defined?(PADRINO_ROO
 
 require "padrino"
 require "mongoid"
+require "mongoid_token"
 require "slim"
 
 ::Padrino.configure_apps do
