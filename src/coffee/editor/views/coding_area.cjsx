@@ -10,11 +10,15 @@ define ["react"], (React)->
       @richEditor = ace.edit("rich-editor")
       @richEditor.getSession().setUseWorker(false)
       @richEditor.setTheme("ace/theme/monokai")
-      @richEditor.getSession().setMode("ace/mode/#{resolveLanguage(@state.source)}")
+      @initEditorMode()
+      @richEditor.setOptions
+        enableBasicAutocompletion: true
+        enableLiveAutocompletion: false
       @richEditor.setValue @state.source.getText()
+      @initLanguageTools()
 
       @state.source.on "change:language", =>
-        @richEditor.getSession().setMode("ace/mode/#{resolveLanguage(@state.source)}")
+        @initEditorMode()
 
       @state.source.on "change:text", =>
         if @richEditor.getValue() != @state.source.getText()
@@ -23,8 +27,29 @@ define ["react"], (React)->
       @richEditor.on "change", =>
         @state.source.set "text", @richEditor.getValue()
 
+    initEditorMode: ->
+      @richEditor.getSession().setMode("ace/mode/#{resolveLanguage(@state.source)}")
+
     componentWillUnmount: ->
       @richEditor.destroy()
+
+    initLanguageTools: ->
+      langTools = ace.require("ace/ext/language_tools")
+      langTools.setCompleters [@createCompleter()]
+
+    createCompleter: ->
+      getCompletions: (editor, session, pos, prefix, callback)->
+        if prefix.length == 0
+          callback null, []
+        else
+          # TODO: Use Web API
+          callback null, [
+            {
+              name: "hello-name"
+              value: "hello-value"
+              meta: "hello-meta"
+            }
+          ]
 
     render: ->
       <div>
