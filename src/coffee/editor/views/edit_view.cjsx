@@ -22,11 +22,8 @@ define ["react"], (React)->
         @forceUpdate(null)
 
     componentWillUnmount: ->
-      @getBackboneModels().forEach (model)=>
+      @models.forEach (model)=>
         model.off null, null, @
-
-    getBackboneModels: ->
-      @models
 
     showMessage = (text)->
       EditorApp.vent.trigger "message", {
@@ -37,6 +34,17 @@ define ["react"], (React)->
     showErrorMessage = (text)->
       EditorApp.vent.trigger "message", {
         type: "Error"
+        text: text
+      }
+
+    showStatusMessage = (text)->
+      EditorApp.vent.trigger "message", {
+        type: "Output"
+        text: text
+      }
+
+    showRawMessage = (text)->
+      EditorApp.vent.trigger "message:raw", {
         text: text
       }
 
@@ -53,11 +61,14 @@ define ["react"], (React)->
     run: =>
       status = new EditorApp.Editor.Status
         source_id: @source.id
-      showMessage "Sending Source..."
+      showMessage "Sending Source... (and Waiting Result...)"
       status.save()
         .then ->
           showMessage "Sent"
-          showMessage "Waiting Result..."
+          term = []
+          term.push "$ #{status.get "lang_version"}"
+          term.push status.get("output")
+          showRawMessage term.join("\n")
 
     onChangeSource: (event)=>
       @source.set "text", event.target.value

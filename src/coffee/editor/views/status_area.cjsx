@@ -18,6 +18,11 @@ define ["react", "underscore"], (React, _)->
         @setState
           text: text
 
+      EditorApp.vent.on "message:raw", (message)=>
+        text = "#{message.text}\n" + text
+        @setState
+          text: text
+
     render: ->
       <textarea readOnly className="status-area" value="#{this.state.text}" />
 

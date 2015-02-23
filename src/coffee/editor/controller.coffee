@@ -12,23 +12,23 @@ define ["marionette", "react"], (Marionette, React)->
       source = new EditorApp.Editor.Source
       React.render(React.createElement(EditView, {source: source}), @mainContainer)
 
+    sendMessage = (message)->
+      EditorApp.vent.trigger "message", {
+        type: "System"
+        text: message
+      }
+
     show: (id)->
       source = new EditorApp.Editor.Source
         id: id
 
       editorElement = React.createElement(EditView, {source: source})
       editor = React.render(editorElement, @mainContainer)
-      EditorApp.vent.trigger "message", {
-        type: "System"
-        text: "Loading data..."
-      }
+      sendMessage "Loading data..."
 
       source.fetch()
         .then =>
-          EditorApp.vent.trigger "message", {
-            type: "System"
-            text: "Loaded"
-          }
+          sendMessage "Loaded"
           editor.setState
             source: source
 
