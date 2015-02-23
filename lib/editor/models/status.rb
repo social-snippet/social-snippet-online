@@ -18,23 +18,31 @@ module Editor::Models
 
     has_one :source, :class_name => "::Editor::Models::Source"
 
+    def self.wait_submission_status(ideone, token)
+      3.times do
+        status = ideone.submission_status(token)
+        return status unless status["status"].to_i == STATUS_DONE
+        sleep 3
+      end
+      nil
+    end
+
+    def self.wait_submission_details(ideone, token)
+      5.times do
+        details = ideone.submission_details(token)
+        return details unless details["result"].to_i == RESULT_NOT_RUNNING
+        sleep 3
+      end
+      nil
+    end
+
     def self.submit(source_id)
       source = Source.find(source_id)
       ideone = ::Ideone.new(IDEONE_API_ID, IDEONE_API_PW)
       token  = ideone.create_submission(source.text, source.language)
-      details = {}
 
-      3.times do
-        status = ideone.submission_status(token)
-        break unless status["status"].to_i == STATUS_DONE
-        sleep 3
-      end
-
-      5.times do
-        details = ideone.submission_details(token)
-        break unless details["result"].to_i == RESULT_NOT_RUNNING
-        sleep 3
-      end
+      status = wait_submission_status(ideone, token)
+      details = wait_submission_details(ideone, token)
 
       status = Status.create!(:token  => token)
       status.update_attributes!(
