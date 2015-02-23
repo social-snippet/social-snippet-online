@@ -34,7 +34,6 @@ define ["react"], (React)->
 
     resolveLanguage = (source)->
       name = numToLang[source.getLanguage()]
-      console.log name
       if modeAda(name)
         "ada"
       else if modeAssembler(name)
