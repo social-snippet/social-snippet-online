@@ -1,7 +1,7 @@
-require "json"
-require "rack/parser"
-
 ::Editor::Application.controller :webapi do
+
+  require "json"
+  require "rack/parser"
 
   use ::Rack::Parser, :parsers => {
     "application/json" => proc {|data| ::JSON.parse data }

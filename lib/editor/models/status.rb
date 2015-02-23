@@ -10,6 +10,11 @@ module Editor::Models
     field :token,   :type => String
     field :status,  :type => Integer
     field :result,  :type => Integer
+    field :input,   :type => String
+    field :output,  :type => String
+    field :memory,  :type => Integer
+    field :signal,  :type => Integer
+    field :compile_info, :type => String
 
     has_one :source, :class_name => "::Editor::Models::Source"
 
@@ -17,7 +22,31 @@ module Editor::Models
       source = Source.find(source_id)
       ideone = ::Ideone.new(IDEONE_API_ID, IDEONE_API_PW)
       token  = ideone.create_submission(source.text, source.language)
-      Status.create(:token => token)
+      details = {}
+
+      3.times do
+        status = ideone.submission_status(token)
+        break unless status["status"].to_i == STATUS_DONE
+        sleep 3
+      end
+
+      5.times do
+        details = ideone.submission_details(token)
+        break unless details["result"].to_i == RESULT_NOT_RUNNING
+        sleep 3
+      end
+
+      status = Status.create!(:token  => token)
+      status.update_attributes!(
+        :status => details["status"].to_i,
+        :result => details["result"].to_i,
+        :input  => details["input"],
+        :output => details["output"],
+        :memory => details["memory"].to_i,
+        :signal => details["signal"].to_i,
+        :compile_info => details["cmpinfo"],
+      )
+      status
     end
 
     private
