@@ -8,8 +8,6 @@ gem "slim"
 gem "mongoid"
 gem "mongoid_token"
 gem "rack-parser"
-
-gem "social_snippet"
 gem "ideone-ruby-api"
 
 group :development do
