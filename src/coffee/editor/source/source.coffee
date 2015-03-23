@@ -18,8 +18,6 @@ define ["backbone", "jquery"], (Backbone, jQuery)->
     getLanguage: ->
       parseInt(@get "language", 10)
 
-    SSNIP_URL = "http://ssnip.herokuapp.com"
-
     insertSnippet: ->
       source = @
       ajaxOpts =
