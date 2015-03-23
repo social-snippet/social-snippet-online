@@ -6,16 +6,27 @@ define ["react"], (React)->
       @state =
         source: props.source
 
+    getCurrentLine = (editor)->
+      editor.getSession().getLine(editor.getCursorPosition().row)
+
+    isSnipLine = (event)->
+      if event.command.name == "insertstring"
+        s = getCurrentLine(event.editor)
+        (not />/.test s) && (/@snip.*</.test s)
+
     componentDidMount: ->
       @richEditor = ace.edit("rich-editor")
       @richEditor.getSession().setUseWorker(false)
       @richEditor.setTheme("ace/theme/monokai")
       @initEditorMode()
       @richEditor.setOptions
-        enableBasicAutocompletion: true
+        enableBasicAutocompletion: [@createCompleter()]
         enableLiveAutocompletion: false
       @richEditor.setValue @state.source.getText()
-      @initLanguageTools()
+
+      @richEditor.commands.on "afterExec", (event)=>
+        if isSnipLine(event)
+          @richEditor.execCommand "startAutocomplete"
 
       @state.source.on "change:language", =>
         @initEditorMode()
@@ -33,23 +44,27 @@ define ["react"], (React)->
     componentWillUnmount: ->
       @richEditor.destroy()
 
-    initLanguageTools: ->
-      langTools = ace.require("ace/ext/language_tools")
-      langTools.setCompleters [@createCompleter()]
-
     createCompleter: ->
       getCompletions: (editor, session, pos, prefix, callback)->
-        if prefix.length == 0
+        s = session.getLine(pos.row)
+        if s.length == 0
           callback null, []
         else
-          # TODO: Use Web API
-          callback null, [
-            {
-              name: "hello-name"
-              value: "hello-value"
-              meta: "hello-meta"
-            }
-          ]
+          ajaxOpts =
+            url: "#{SSNIP_URL}/actions/complete"
+            type: "post"
+            dataType: "json"
+            data:
+              q: s
+          jQuery.ajax ajaxOpts
+            .then (res)->
+              if res.result instanceof Array
+                callback null, res.result.map (cand)->
+                  name: cand
+                  value: cand
+                  meta: "repo"
+              else
+                callback null
 
     render: ->
       <div>

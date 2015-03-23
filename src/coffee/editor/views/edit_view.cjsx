@@ -1,4 +1,4 @@
-define ["react"], (React)->
+define ["react", "jquery"], (React, jQuery)->
 
   class EditView extends React.Component
 
@@ -17,9 +17,25 @@ define ["react"], (React)->
       ]
 
     componentDidMount: ->
+      @initModalInstallRepoEvents()
       @source.on "add change remove", =>
         @setState source: @source
         @forceUpdate(null)
+
+    initModalInstallRepoEvents: ->
+      jQuery(document).on "click", "#modal-install-repo button.install", ->
+        repoName = jQuery("#modal-install-repo input.repo-name").val()
+        console.log repoName
+        ajaxOpts =
+          url: "#{SSNIP_URL}/actions/install"
+          type: "post"
+          dataType: "json"
+          data:
+            repos: [repoName]
+        jQuery.ajax ajaxOpts
+          .then ->
+            jQuery("#modal-install-repo").modal "hide"
+          .then null, (e)->
 
     componentWillUnmount: ->
       @models.forEach (model)=>
@@ -79,6 +95,9 @@ define ["react"], (React)->
           showErrorMessage err
           throw err
 
+    install: ->
+      jQuery("#modal-install-repo").modal()
+
     onChangeSource: (event)=>
       @source.set "text", event.target.value
 
@@ -90,7 +109,8 @@ define ["react"], (React)->
         <div className="editor-area">
           <CodingActions onClickSave={this.save}
             onClickRun={this.run}
-            onClickInsert={this.insert} />
+            onClickInsert={this.insert}
+            onClickInstall={this.install} />
           <SourceInfo source={this.state.source}
             onChangeLanguage={this.onChangeLanguage} />
           <CodingArea source={this.state.source}
