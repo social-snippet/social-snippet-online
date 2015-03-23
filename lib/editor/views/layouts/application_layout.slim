@@ -43,3 +43,27 @@ html
     section#templates
       == yield
 
+    section#modals
+      div#modal-install-repo.modal.fade role="dialog"
+        div.modal-dialog
+          div.modal-content
+            div.modal-header
+              button.close aria-label="Close" data-dismiss="modal"
+                span &times;
+              h4.modal-title $ sspm install {repo_name}
+            div.modal-body
+              div.form-group
+                label.control-label for="repo-name"
+                  | Repository Name
+                input.form-control.repo-name name="repo-name" placeholder="Repository Name"
+                p
+                  | Available repositories are  
+                  a href="https://sspm.herokuapp.com/repos"
+                    | here
+                  | .
+
+
+            div.modal-footer
+              button.install.btn.btn-primary Install
+              button.cancel.btn.btn-warning data-dismiss="modal" Cancel
+
