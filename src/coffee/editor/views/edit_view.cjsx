@@ -70,6 +70,15 @@ define ["react"], (React)->
           term.push status.get("output")
           showRawMessage term.join("\n")
 
+    insert: =>
+      showMessage "Inserting Snippet..."
+      @source.insertSnippet()
+        .then ->
+          showMessage "Done"
+        .then null, (err)->
+          showErrorMessage err
+          throw err
+
     onChangeSource: (event)=>
       @source.set "text", event.target.value
 
@@ -78,12 +87,10 @@ define ["react"], (React)->
 
     render: ->
       <div className="row">
-        <div className="col-sm-2">
-          <EditorActions />
-        </div>
-        <div className="editor-area col-sm-10">
+        <div className="editor-area">
           <CodingActions onClickSave={this.save}
-            onClickRun={this.run} />
+            onClickRun={this.run}
+            onClickInsert={this.insert} />
           <SourceInfo source={this.state.source}
             onChangeLanguage={this.onChangeLanguage} />
           <CodingArea source={this.state.source}
