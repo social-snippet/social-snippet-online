@@ -78,10 +78,7 @@ define ["react"], (React)->
 
     render: ->
       <div className="row">
-        <div className="col-sm-2">
-          <EditorActions />
-        </div>
-        <div className="editor-area col-sm-10">
+        <div className="editor-area">
           <CodingActions onClickSave={this.save}
             onClickRun={this.run} />
           <SourceInfo source={this.state.source}
