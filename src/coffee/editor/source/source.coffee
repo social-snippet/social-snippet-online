@@ -1,4 +1,4 @@
-define ["backbone"], (Backbone)->
+define ["backbone", "jquery"], (Backbone, jQuery)->
 
   class Source extends Backbone.Model
 
@@ -17,4 +17,19 @@ define ["backbone"], (Backbone)->
 
     getLanguage: ->
       parseInt(@get "language", 10)
+
+    SSNIP_URL = "http://ssnip.herokuapp.com"
+
+    insertSnippet: ->
+      source = @
+      ajaxOpts =
+        url: "#{SSNIP_URL}/actions/insert"
+        type: "post"
+        dataType: "json"
+        data:
+          text: source.getText()
+
+      jQuery.ajax ajaxOpts
+        .then (res)->
+          source.set "text", res.text
 
