@@ -1,4 +1,4 @@
-define ["react", "underscore"], (React, _)->
+define ["react", "underscore", "jquery"], (React, _, jQuery)->
 
   class StatusArea extends React.Component
 
@@ -14,15 +14,19 @@ define ["react", "underscore"], (React, _)->
       EditorApp.vent.on "message", (message)=>
         date = new Date
         dateText = "#{padding date.getHours()}:#{padding date.getMinutes()}:#{padding date.getSeconds()}"
-        text = "[#{dateText}] #{message.type}: #{message.text}\n" + text
+        text += "[#{dateText}] #{message.type}: #{message.text}\n"
         @setState
           text: text
 
       EditorApp.vent.on "message:raw", (message)=>
-        text = "#{message.text}\n" + text
+        text += "#{message.text}\n"
         @setState
           text: text
 
+    componentDidUpdate: =>
+      element = jQuery(React.findDOMNode @refs.statusArea)
+      element.scrollTop(element[0].scrollHeight - element.height())
+
     render: ->
-      <textarea readOnly className="status-area" value="#{this.state.text}" />
+      <textarea ref="statusArea" readOnly className="status-area" value="#{this.state.text}" />
 
