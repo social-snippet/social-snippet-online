@@ -11,6 +11,12 @@ define ["react", "jquery"], (React, jQuery)->
     constructor: (props)->
       @state =
         source: props.source
+        saving: false
+        running: false
+        inserting: false
+        errorOnSaving: false
+        errorOnRunning: false
+        errorOnInserting: false
       @source = props.source
       @models = [
         @source
@@ -25,7 +31,6 @@ define ["react", "jquery"], (React, jQuery)->
     initModalInstallRepoEvents: ->
       jQuery(document).on "click", "#modal-install-repo button.install", ->
         repoName = jQuery("#modal-install-repo input.repo-name").val()
-        console.log repoName
         ajaxOpts =
           url: "#{SSNIP_URL}/actions/install"
           type: "post"
@@ -66,9 +71,13 @@ define ["react", "jquery"], (React, jQuery)->
 
     save: =>
       showMessage "Saving Data..."
+      @setState
+        saving: true
       @source.save()
         .then =>
           showMessage "Saved"
+          @setState
+            saving: false
           EditorApp.vent.trigger "editor:show", @source
         .then null, (err)=>
           showErrorMessage err
@@ -77,10 +86,14 @@ define ["react", "jquery"], (React, jQuery)->
     run: =>
       status = new EditorApp.Editor.Status
         source_id: @source.id
+      @setState
+        running: true
       showMessage "Sending Source... (and Waiting Result...)"
       status.save()
-        .then ->
+        .then =>
           showMessage "Sent"
+          @setState
+            running: false
           term = []
           term.push "$ #{status.get "lang_version"}"
           term.push status.get("output")
@@ -110,7 +123,14 @@ define ["react", "jquery"], (React, jQuery)->
     render: ->
       <div className="row">
         <div className="editor-area">
-          <CodingActions onClickSave={this.save}
+          <CodingActions
+            saving={this.state.saving}
+            running={this.state.running}
+            inserting={this.state.inserting}
+            errorOnSaving={this.state.errorOnSaving}
+            errorOnRunning={this.state.errorOnRunning}
+            errorOnInserting={this.state.errorOnInserting}
+            onClickSave={this.save}
             onClickRun={this.run}
             onClickInsert={this.insert}
             onClickInstall={this.install}
