@@ -2,17 +2,23 @@ define ["react"], (React)->
 
   class CodingActions extends React.Component
 
+    callPropFunc: (name)->
+      @props[name]() if @props[name] instanceof Function
+
     onClickSave: =>
-      @props.onClickSave() if @props.onClickSave instanceof Function
+      @callPropFunc "onClickSave"
 
     onClickRun: =>
-      @props.onClickRun() if @props.onClickRun instanceof Function
+      @callPropFunc "onClickRun"
 
     onClickInsert: =>
-      @props.onClickInsert() if @props.onClickInsert instanceof Function
+      @callPropFunc "onClickInsert"
 
     onClickInstall: =>
-      @props.onClickInstall() if @props.onClickInstall instanceof Function
+      @callPropFunc "onClickInstall"
+
+    onClickHelp: =>
+      @callPropFunc "onClickHelp"
 
     render: ->
       <div className="coding-actions">
@@ -20,5 +26,6 @@ define ["react"], (React)->
         <button onClick={this.onClickRun} className="btn btn-sm btn-default"><i className="fa fa-play-circle" /> Run</button>
         <button onClick={this.onClickInsert} className="btn btn-sm btn-default"><i className="fa fa-file-text" /> Insert</button>
         <button onClick={this.onClickInstall} className="btn btn-sm btn-default"><i className="fa fa-hand-o-right" /> Install</button>
+        <button onClick={this.onClickHelp} className="btn btn-sm btn-default"><i className="fa fa-question-circle" /> Help</button>
       </div>
 
