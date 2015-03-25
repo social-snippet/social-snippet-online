@@ -17,6 +17,7 @@ define ["react", "jquery"], (React, jQuery)->
         errorOnSaving: false
         errorOnRunning: false
         errorOnInserting: false
+        markers: []
       @source = props.source
       @models = [
         @source
@@ -24,9 +25,12 @@ define ["react", "jquery"], (React, jQuery)->
 
     componentDidMount: ->
       @initModalInstallRepoEvents()
-      @source.on "add change remove", =>
+      @source.on "add:text change:text remove:text", =>
         @setState source: @source
         @forceUpdate(null)
+      @source.on "add:newRanges change:newRanges remove:newRanges", =>
+        console.log "source change new ranges"
+        @setState markers: @source.get("newRanges")
 
     initModalInstallRepoEvents: ->
       jQuery(document).on "click", "#modal-install-repo button.install", ->
@@ -138,6 +142,7 @@ define ["react", "jquery"], (React, jQuery)->
           <SourceInfo source={this.state.source}
             onChangeLanguage={this.onChangeLanguage} />
           <CodingArea source={this.state.source}
+            markers={this.state.markers}
             onChange={this.onChangeSource} />
           <StatusArea />
         </div>
