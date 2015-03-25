@@ -98,6 +98,9 @@ define ["react", "jquery"], (React, jQuery)->
     install: ->
       jQuery("#modal-install-repo").modal()
 
+    help: ->
+      jQuery("#modal-help").modal()
+
     onChangeSource: (event)=>
       @source.set "text", event.target.value
 
@@ -110,7 +113,8 @@ define ["react", "jquery"], (React, jQuery)->
           <CodingActions onClickSave={this.save}
             onClickRun={this.run}
             onClickInsert={this.insert}
-            onClickInstall={this.install} />
+            onClickInstall={this.install}
+            onClickHelp={this.help} />
           <SourceInfo source={this.state.source}
             onChangeLanguage={this.onChangeLanguage} />
           <CodingArea source={this.state.source}
