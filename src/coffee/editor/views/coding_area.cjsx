@@ -19,6 +19,7 @@ define ["react"], (React)->
         /@snip.*<$/.test(s) || /@snip.*<.+:$/.test(s) || /@snip.*<[^:]+:[^>]+\/$/.test(s)
 
     componentDidMount: ->
+      console.log "componentDidMount"
       @richEditor = ace.edit("rich-editor")
       @richEditor.getSession().setUseWorker(false)
       @richEditor.setTheme("ace/theme/monokai")
@@ -41,6 +42,32 @@ define ["react"], (React)->
 
       @richEditor.on "change", =>
         @state.source.set "text", @richEditor.getValue()
+
+    removeMarkers = (session)->
+      console.log "remove markers"
+      # reset markers
+      for marker in session.getMarkers()
+        if marker.clazz == "inserted-line"
+          session.removeMarker(marker.id)
+
+    removeMarkersTimer = undefined
+
+    componentDidUpdate: =>
+      console.log "componentDidUpdate"
+      clearTimeout(removeMarkersTimer) unless typeof removeMarkers == "undefined"
+      updateMarkerFunc = =>
+        console.log "update markers once?"
+        removeMarkersTimer = undefined
+        Range = ace.require("ace/range").Range
+        @props.markers.forEach (info)=>
+          session = @richEditor.session
+          session.addMarker(
+            new Range(info.from - 1, 0, info.to - 1, 0)
+            "inserted-line"
+            "line"
+          )
+          setTimeout removeMarkers.bind(null, session), 10000
+      removeMarkersTimer = setTimeout(updateMarkerFunc, 100)
 
     initEditorMode: ->
       @richEditor.getSession().setMode("ace/mode/#{resolveLanguage(@state.source)}")
