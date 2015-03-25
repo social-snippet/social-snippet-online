@@ -40,34 +40,45 @@ html
 
     section#main-container.container
 
-    footer.jumbotron.container
-      div.container
-        h2
-          i.fa.fa-info-circle
-          |  Information
-        h3
-          i.fa.fa-check-square-o
-          |  1. Syntax
-        p
-          kbd
-            | // @snip &lt;{repo-name}:{path/to/file}&gt;
-        h3
-          i.fa.fa-check-square-o
-          |  2. Example
-        p
-          | Insert 
-          kbd func.cpp
-          |  of  
-          kbd example-repo
-        p
-          kbd
-            | // @snip &lt;example-repo:func.cpp>&gt;
-
     
     section#templates
       == yield
 
     section#modals
+      div#modal-help.modal.fade role="dialog"
+        div.modal-dialog
+          div.modal-content
+            div.modal-header
+              button.close aria-label="Close" data-dismiss="modal"
+                span &times;
+              h4.modal-title Help
+
+            div.modal-body
+              h2
+                i.fa.fa-info-circle
+                |  About Tag
+              h3
+                i.fa.fa-check-square-o
+                |  1. Syntax
+              p
+                kbd
+                  | // @snip &lt;{repo-name}:{path/to/file}&gt;
+              h3
+                i.fa.fa-check-square-o
+                |  2. Example
+              p
+                | Insert 
+                kbd func.cpp
+                |  of  
+                kbd example-repo
+              p
+                kbd
+                  | // @snip &lt;example-repo:func.cpp>&gt;
+
+            div.modal-footer
+              button.btn.btn-primary Close
+
+
       div#modal-install-repo.modal.fade role="dialog"
         div.modal-dialog
           div.modal-content
@@ -75,6 +86,7 @@ html
               button.close aria-label="Close" data-dismiss="modal"
                 span &times;
               h4.modal-title $ sspm install {repo_name}
+
             div.modal-body
               div.form-group
                 label.control-label for="repo-name"
@@ -85,7 +97,6 @@ html
                   a href="https://sspm.herokuapp.com/repos"
                     | here
                   | .
-
 
             div.modal-footer
               button.install.btn.btn-primary Install
