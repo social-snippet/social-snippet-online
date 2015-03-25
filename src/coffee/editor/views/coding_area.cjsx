@@ -9,10 +9,14 @@ define ["react"], (React)->
     getCurrentLine = (editor)->
       editor.getSession().getLine(editor.getCursorPosition().row)
 
+    isClosedSnipTagLine = (s)->
+      />/.test s
+
     isSnipLine = (event)->
       if event.command.name == "insertstring"
         s = getCurrentLine(event.editor)
-        (not />/.test s) && (/@snip.*</.test s)
+        return false if isClosedSnipTagLine(s)
+        /@snip.*<$/.test(s) || /@snip.*<.+:$/.test(s)
 
     componentDidMount: ->
       @richEditor = ace.edit("rich-editor")
