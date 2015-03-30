@@ -62,7 +62,7 @@ define ["react"], (React)->
         @props.markers.forEach (info)=>
           session = @richEditor.session
           session.addMarker(
-            new Range(info.from - 1, 0, info.to - 1, 0)
+            new Range(info.from, 0, info.to + 1, 0)
             "inserted-line"
             "line"
           )
