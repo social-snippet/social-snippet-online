@@ -11,6 +11,7 @@ define ["backbone", "jquery"], (Backbone, jQuery)->
     defaults: ->
       text: "edit here"
       language: "1"
+      newRanges: []
 
     getText: ->
       @get "text"
@@ -29,5 +30,6 @@ define ["backbone", "jquery"], (Backbone, jQuery)->
 
       jQuery.ajax ajaxOpts
         .then (res)->
-          source.set "text", res.text
+          source.set "newRanges", res["new_ranges"]
+          source.set "text", res["text"]
 

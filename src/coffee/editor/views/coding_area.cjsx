@@ -1,4 +1,4 @@
-define ["react"], (React)->
+define ["react", "underscore", "jquery"], (React, _, jQuery)->
 
   class CodingArea extends React.Component
 
@@ -19,6 +19,7 @@ define ["react"], (React)->
         /@snip.*<$/.test(s) || /@snip.*<.+:$/.test(s) || /@snip.*<[^:]+:[^>]+\/$/.test(s)
 
     componentDidMount: ->
+      console.log "componentDidMount"
       @richEditor = ace.edit("rich-editor")
       @richEditor.getSession().setUseWorker(false)
       @richEditor.setTheme("ace/theme/monokai")
@@ -41,6 +42,39 @@ define ["react"], (React)->
 
       @richEditor.on "change", =>
         @state.source.set "text", @richEditor.getValue()
+
+    removeMarkers = (session)->
+      markers = session.getMarkers()
+      _(markers).each (marker, k)->
+        if marker.clazz == "inserted-line"
+          session.removeMarker(marker.id)
+
+    showInsertedLines = ->
+      jQuery(".inserted-line").each ->
+        $(@).toggleClass "ease-in"
+
+    hideInsertedLines = ->
+      jQuery(".inserted-line").each ->
+        $(@).toggleClass "ease-in"
+
+    removeMarkersTimer = undefined
+
+    componentDidUpdate: =>
+      clearTimeout(removeMarkersTimer) unless typeof removeMarkers == "undefined"
+      updateMarkerFunc = =>
+        removeMarkersTimer = undefined
+        Range = ace.require("ace/range").Range
+        @props.markers.forEach (info)=>
+          session = @richEditor.session
+          session.addMarker(
+            new Range(info.from, 0, info.to + 1, 0)
+            "inserted-line"
+            "line"
+          )
+          setTimeout showInsertedLines, 0
+          setTimeout hideInsertedLines, 1000
+          setTimeout removeMarkers.bind(@, session), 2000
+      removeMarkersTimer = setTimeout(updateMarkerFunc, 100)
 
     initEditorMode: ->
       @richEditor.getSession().setMode("ace/mode/#{resolveLanguage(@state.source)}")
