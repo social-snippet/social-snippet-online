@@ -17,9 +17,12 @@
   .inserted-line
     position: absolute
     -webkit-transition: background-color
-    -webkit-transition-duration: 1s
-    -webkit-transition-timing-function: ease-in
-    background: rgba(153, 255, 0, 0.5)
+    -webkit-transition-duration: 0.5s
+    background: inherit
+    -webkit-transition-timing-function: ease-out
+    &.ease-in
+      -webkit-transition-timing-function: ease-in
+      background: rgba(153, 204, 0, 0.8)
     z-index: 20
 
 .coding-area
