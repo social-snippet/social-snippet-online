@@ -9,7 +9,7 @@ webpackPlugins.push new webpack.ResolverPlugin [
 
 webpackPlugins.push new webpack.DefinePlugin
   VERSION: JSON.stringify("0.0.0")
-  SSNIP_URL: JSON.stringify("https://ssnip.herokuapp.com")
+  SSNIP_URL: JSON.stringify(process.env["SSNIP_URL"] || "https://ssnip.herokuapp.com")
 
 unless process.env["DISABLE_UGLIFY_JS"] == "yes"
   console.log "webpack: enable uglifyjs"
