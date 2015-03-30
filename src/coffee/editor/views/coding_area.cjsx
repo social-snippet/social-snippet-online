@@ -1,4 +1,4 @@
-define ["react"], (React)->
+define ["react", "underscore", "jquery"], (React, _, jQuery)->
 
   class CodingArea extends React.Component
 
@@ -44,19 +44,24 @@ define ["react"], (React)->
         @state.source.set "text", @richEditor.getValue()
 
     removeMarkers = (session)->
-      console.log "remove markers"
-      # reset markers
-      for marker in session.getMarkers()
+      markers = session.getMarkers()
+      _(markers).each (marker, k)->
         if marker.clazz == "inserted-line"
           session.removeMarker(marker.id)
+
+    showInsertedLines = ->
+      jQuery(".inserted-line").each ->
+        $(@).toggleClass "ease-in"
+
+    hideInsertedLines = ->
+      jQuery(".inserted-line").each ->
+        $(@).toggleClass "ease-in"
 
     removeMarkersTimer = undefined
 
     componentDidUpdate: =>
-      console.log "componentDidUpdate"
       clearTimeout(removeMarkersTimer) unless typeof removeMarkers == "undefined"
       updateMarkerFunc = =>
-        console.log "update markers once?"
         removeMarkersTimer = undefined
         Range = ace.require("ace/range").Range
         @props.markers.forEach (info)=>
@@ -66,7 +71,9 @@ define ["react"], (React)->
             "inserted-line"
             "line"
           )
-          setTimeout removeMarkers.bind(null, session), 10000
+          setTimeout showInsertedLines, 0
+          setTimeout hideInsertedLines, 1000
+          setTimeout removeMarkers.bind(@, session), 2000
       removeMarkersTimer = setTimeout(updateMarkerFunc, 100)
 
     initEditorMode: ->
