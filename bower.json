@@ -13,6 +13,9 @@
     "tests"
   ],
   "dependencies": {
-    "marionette": "~2.3.2"
+    "marionette": "~2.4.1"
+  },
+  "resolutions": {
+    "underscore": "~1.8.3"
   }
 }
